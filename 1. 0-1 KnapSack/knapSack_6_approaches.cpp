@@ -1,4 +1,9 @@
-#include<bits/stdc++.h>
+// #include<bits/stdc++.h>
+#include<iostream>
+#include<cstring>
+#include<unordered_map>
+#include<iterator>
+
 using namespace std;
 
 int memo[1000][100000];
@@ -17,6 +22,31 @@ int knapSack_memo(int W,int wt[],int val[],int n)
     if(memo[n][W]!=-1) return memo[n][W];
     return memo[n][W]= max(knapSack_memo(W-wt[n-1],wt,val,n-1)+val[n-1], knapSack_memo(W,wt,val,n-1));
 }
+
+struct hash_pair {
+    template <class T1, class T2>
+    size_t operator()(const pair<T1, T2>& p) const
+    {
+        auto hash1 = hash<T1>{}(p.first);
+        auto hash2 = hash<T2>{}(p.second);
+        return hash1 ^ hash2;
+    }
+};
+
+
+int knapSack_memo_hashmap(int W,int wt[],int val[],int n,unordered_map<pair<int,int>,int,hash_pair> &m)
+{
+    if(W==0 || n==0) return 0;
+    
+    unordered_map<pair<int, int>,int,hash_pair>::iterator res=m.find(make_pair(n,W));
+    if(res!=m.end()) return res->second;
+    
+    int ans= max(knapSack_memo_hashmap(W-wt[n-1],wt,val,n-1,m)+val[n-1], knapSack_memo_hashmap(W,wt,val,n-1,m));
+    // m.insert(make_pair(make_pair(n,W),ans));
+    m[make_pair(n,W)]=ans;
+    return ans;
+}
+
 
 int knapSack_tabulation(int W,int wt[],int val[],int n)
 {
@@ -88,6 +118,8 @@ int main()
     
     memset(memo,-1,sizeof(memo));
     cout << knapSack_memo(W,wt,val,n) << endl;
+    unordered_map<pair<int,int>, int,hash_pair> hash_memo;
+    cout << knapSack_memo_hashmap(W,wt,val,n,hash_memo) << endl;
     
     cout << knapSack_tabulation(W, wt, val, n) << endl;
     cout << knapSack_tabulation_space_opt1_rev(W, wt, val, n) << endl;
