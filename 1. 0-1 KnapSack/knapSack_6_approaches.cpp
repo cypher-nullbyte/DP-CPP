@@ -99,7 +99,7 @@ int knapSack_tabulation_space_opt2(int W,int wt[],int val[],int n)
         {
             if(wt[i-1]<=w)
             {
-                dp[1][w]=max(dp[1][w-wt[i-1]]+val[i-1],dp[0][w]);
+                dp[0][w]=dp[1][w]=max(dp[1][w-wt[i-1]]+val[i-1],dp[0][w]);
             }
         }
     }
