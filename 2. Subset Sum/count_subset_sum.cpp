@@ -51,7 +51,7 @@ int countSubsetSum_tabulation(int set[],int n,int sum)
     {
         for(int s=0;s<=sum;s++)
         {
-            if(i==0) table[i][s]=(s==0)? 1:0;
+            if(i==0 || s==0) table[i][s]=(s==0)? 1:0;
             
             else if(set[i-1]<=s)
             {
@@ -62,7 +62,6 @@ int countSubsetSum_tabulation(int set[],int n,int sum)
         }
         
     }
-    
     return table[n][sum];
     
 }
@@ -83,5 +82,3 @@ int main()
     
     return 0;
 }
-
-
