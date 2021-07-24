@@ -52,8 +52,7 @@ bool isSubsetSum_tabulation(int set[],int n,int sum)
     {
         for(int s=0;s<=sum;s++)
         {
-            if(i==0) table[i][s]=0;
-            if(s==0) table[i][s]=1;
+            if(i==0 || s==0) table[i][s]=(s==0)? 1:0;
             
             else if(set[i-1]<=s)
             {
