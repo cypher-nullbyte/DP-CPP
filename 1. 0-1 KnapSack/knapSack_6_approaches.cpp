@@ -23,7 +23,7 @@ int knapSack_memo(int W,int wt[],int val[],int n)
     if(W==0 || n==0) return 0;
     if(memo[n][W]!=-1) return memo[n][W];
     
-    if(wt[n-1]>W) return memo[n][W]=(W,wt,val,n-1);
+    if(wt[n-1]>W) return memo[n][W]=knapSack_memo(W,wt,val,n-1);
     
     return memo[n][W]= max(knapSack_memo(W-wt[n-1],wt,val,n-1)+val[n-1], knapSack_memo(W,wt,val,n-1));
 }
@@ -48,7 +48,7 @@ int knapSack_memo_hashmap(int W,int wt[],int val[],int n,unordered_map<pair<int,
     
     int ans;
     
-    if(wt[n-1]>W) ans=(W,wt,val,n-1);
+    if(wt[n-1]>W) ans=knapSack_memo_hashmap(W,wt,val,n-1,m);
     else  ans= max(knapSack_memo_hashmap(W-wt[n-1],wt,val,n-1,m)+val[n-1], knapSack_memo_hashmap(W,wt,val,n-1,m));
     
     // m.insert(make_pair(make_pair(n,W),ans));
