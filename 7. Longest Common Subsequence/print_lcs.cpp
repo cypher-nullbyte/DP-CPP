@@ -28,7 +28,7 @@ string print_lcs_tabulation(string X,string Y,int m,int n)
     int i=m,j=n;
     while(i>=0 && j>=0)
     {
-        if(X[i]==Y[j])
+        if(X[i-1]==Y[j-1])
         {
             result.push_back(X[i]);
             i--;
@@ -36,16 +36,6 @@ string print_lcs_tabulation(string X,string Y,int m,int n)
         }
         else if(X[i-1]>Y[j-1]) i--;
         else j--;
-    }
-    while(i>=0)
-    {
-        result.push_back(X[i]);
-        i--;
-    }
-    while(j>=0)
-    {
-        result.push_back(Y[j]);
-        j--;
     }
     reverse(result.begin(),result.end());
     return result;
@@ -62,4 +52,3 @@ int main()
     return 0;
 }   
 
-// https://www.geeksforgeeks.org/printing-longest-common-subsequence/
