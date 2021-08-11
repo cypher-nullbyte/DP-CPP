@@ -25,11 +25,37 @@ int minPalPartition(string str,int i,int j)
     return mn;
 }
 
+int minPalPartition_recur_memo(string str,int i,int j,int** memo)
+{
+    if(i>=j) return 0;
+    if(memo[i][j]!=-1) return memo[i][j];
+    if(isPallindrome(str,i,j)) return 0;
+    
+    int mn=numeric_limits<int>::max();
+    for(int k=i;k<=j-1;k++)
+    {
+        int temp=minPalPartition_recur_memo(str,i,k,memo)+1+minPalPartition_recur_memo(str,k+1,j,memo);
+        mn=min(mn,temp);
+    }
+    return memo[i][j]= mn;
+}
+
+int minPalPartition_memo(string str,int i,int j)
+{
+    int **memo=new int*[j+2];
+    for(int k=0;k<j+2;k++)
+    {
+        memo[k]=new int[j+2];
+        memset(memo[k],-1,sizeof(memo[k])*(j+2));
+    }
+    return minPalPartition_recur_memo(str,i,j,memo);
+}
 
 int main()
 {
     string str = "ababbbabbababa";
     cout << "Min cuts needed for Palindrome Partitioning is: " << minPalPartition(str, 0, str.length() - 1) << endl;
+    cout << "Min cuts needed for Palindrome Partitioning is: " << minPalPartition_memo(str, 0, str.length() - 1) << endl;
     return 0;
 }
 
