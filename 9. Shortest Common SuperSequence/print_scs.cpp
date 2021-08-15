@@ -6,7 +6,7 @@
 using namespace std;
 
 
-string print_lcs_tabulation(string X,string Y,int m,int n)
+string print_scs_tabulation(string X,string Y,int m,int n)
 {
     int table[m+1][n+1];
     
@@ -66,7 +66,7 @@ int main()
     string X= "AGGTAB";
     string Y= "GXTXAYB";
     int m=X.size(),n=Y.length();
-    cout<<print_lcs_tabulation(X,Y,m,n)<<endl;
+    cout<<print_scs_tabulation(X,Y,m,n)<<endl;
     // AGXGTXAYB
     return 0;
 }   
