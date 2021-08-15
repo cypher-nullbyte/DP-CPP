@@ -26,11 +26,11 @@ string print_lcs_tabulation(string X,string Y,int m,int n)
     //Printing 
     string result;
     int i=m,j=n;
-    while(i>=0 && j>=0)
+    while(i>0 && j>0)
     {
         if(X[i-1]==Y[j-1])
         {
-            result.push_back(X[i]);
+            result.push_back(X[i-1]);
             i--;
             j--;
         }
@@ -51,4 +51,3 @@ int main()
     
     return 0;
 }   
-
